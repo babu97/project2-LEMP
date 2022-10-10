@@ -1,5 +1,6 @@
 ## STEP 1 -INSTALLING THE NGINX WEB SERVER 
-Since this is our first time using apt for this session, start off by updating your server’s package index. Following that, you can use apt install to get Nginx installed:
+Since this is MY first time using apt for this session, I startED  off by updating MY  server’s package index. Following that, I
+can use apt install to get Nginx installed:
 ```
 sudo apt update
 sudo apt install nginx 
@@ -13,6 +14,7 @@ sudo systemctl status nginx
 Before we can receive any traffic by our Web Server, we need to open TCP port 80 which is default port that web brousers use to access web pages in the Internet.
 
 As we know, we have TCP port 22 open by default on our EC2 machine to access it via SSH, so we need to add a rule to EC2 configuration to open inbound connection through port 80:
+
 
 Our server is running and we can access it locally and from the Internet (Source 0.0.0.0/0 means ‘from any IP address’).
 
@@ -28,6 +30,10 @@ To check and retrieve your public ip address, other than to check it in AWS web 
 curl -s http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 The URL in browser shall also work if you do not specify port number since all web browsers use port 80 by default.
+
+![](/nginx%20url.PNG)
+
+
 
 ### STEP 2 -INSTALLING MYSQL
 Now that you have a web server up and running, you need to install a Database Management System (DBMS) to be able to store and manage data for your site in a relational database. MySQL is a popular relational database management system used within PHP environments, so we will use it in our project.
@@ -85,22 +91,26 @@ If you enabled password validation, you’ll be shown the password strength for 
 ```
 Estimated strength of the password: 100 
 Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y
-```
+
 
 For the rest of the questions, press Y and hit the ENTER key at each prompt. This will prompt you to change the root password, remove some anonymous users and the test database, disable remote root logins, and load these new rules so that MySQL immediately respects the changes you have made.
 When you’re finished, test if you’re able to log in to the MySQL console by typing:
 
 ```
- sudo mysql u(username) -p(password)
- ```
+sudo mysql u(username) -p(password)
+```
+
 
  To exit the MySQL console, type:
 
+
+
 ```
-exit
- ``
+EXIT
+```
  ### STEP 3 -INSTALLING PHP 
 
+	
  While Apache embeds the PHP interpreter in each request, Nginx requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. This allows for a better overall performance in most PHP-based websites, but it requires additional configuration. You’ll need to install php-fpm, which stands for “PHP fastCGI process manager”, and tell Nginx to pass PHP requests to this software for processing. Additionally, you’ll need php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. Core PHP packages will automatically be installed as dependencies.
  To install these 2 packages at once, run:
  ```
@@ -191,6 +201,7 @@ sudo systemctl reload nginx
 ```
 Your new website is now active, but the web root /var/www/projectLEMP is still empty. Create an index.html file in that location so that we can test that your new server block works as expected:
 ```
+
 sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html
 ```
 Now go to your browser and try open your website URL using ip address: 
@@ -223,6 +234,8 @@ Type or paste the following lines into the new file. This is valid PHP code that
 <?PHP 
 phpinfo(); 
 You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php:
+
+```
 ```
 http://`server_domain_or_IP`/info.php
 ```
@@ -240,9 +253,11 @@ First, connect to the MySQL console using the **root** account:
 sudo mysql 
 ```
 To create a new database, run the following command from your MySQL console:
+
 ```
 mysql> CREATE DATABASE `example_database`;
 ```
+
 Now you can create a new user and grant him full privileges on the database you have just created.
 
 The following command creates a new user named example_user, using mysql_native_password as default authentication method. We’re defining this user’s password as password, but you should replace this value with a secure password of your own choosing.
@@ -305,7 +320,11 @@ Output
 4 rows in set (0.000 sec)
 ```
 After confirming that you have valid data in your test table, you can exit the MySQL console:
+![](/todo_list_database.PNG)
+
+```
 mysql> exit
+```
 Now you can create a PHP script that will connect to MySQL and query for your content. Create a new PHP file in your custom web root directory using your preferred editor. We’ll use vi for that:
 ```
 nano /var/www/projectLEMP/todo_list.php
@@ -332,10 +351,11 @@ try {
     die();
 }
 ```
+
 Save and close the file when you are done editing
 You can now access this page in your web browser by visiting the domain name or public IP address configured for your website, followed by /todo_list.php:
 ```
 http://<Public_domain_or_IP>/todo_list.php
 ```
 You should see a page like this, showing the content you’ve inserted in your test table:
-![TODO APP](http://github.com/babu97/project2-LEMP/blob/main/todo%20app.PNG)
+![](/todo%20app.PNG)
