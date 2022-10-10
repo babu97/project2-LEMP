@@ -56,6 +56,7 @@ Start the interactive script by running:
 ```
 sudo mysql_secure_installation
 ```
+
 This will ask if you want to configure the *VALIDATE PASSWORD PLUGIN.*
 **Note:** Enabling this feature is something of a judgment call. If enabled, passwords which don’t match the specified criteria will be rejected by MySQL with an error. It is safe to leave validation disabled, but you should always use strong, unique passwords for database credentials.
 
@@ -85,21 +86,27 @@ If you enabled password validation, you’ll be shown the password strength for 
 Estimated strength of the password: 100 
 Do you wish to continue with the password provided?(Press y|Y for Yes, any other key for No) : y
 ```
+
 For the rest of the questions, press Y and hit the ENTER key at each prompt. This will prompt you to change the root password, remove some anonymous users and the test database, disable remote root logins, and load these new rules so that MySQL immediately respects the changes you have made.
 When you’re finished, test if you’re able to log in to the MySQL console by typing:
+
 ```
- sudo mysql -p
+ sudo mysql u(username) -p(password)
  ```
+
  To exit the MySQL console, type:
- ```
- To exit the MySQL console, type:
- ```
+
+```
+exit
+ ``
  ### STEP 3 -INSTALLING PHP 
+
  While Apache embeds the PHP interpreter in each request, Nginx requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. This allows for a better overall performance in most PHP-based websites, but it requires additional configuration. You’ll need to install php-fpm, which stands for “PHP fastCGI process manager”, and tell Nginx to pass PHP requests to this software for processing. Additionally, you’ll need php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. Core PHP packages will automatically be installed as dependencies.
  To install these 2 packages at once, run:
  ```
  sudo apt install php-fpm php-mysql
  ```
+
  When prompted, type Y and press ENTER to confirm installation.
 
 You now have your PHP components installed. Next, you will configure Nginx to use them.
@@ -109,13 +116,17 @@ When using the Nginx web server, we can create server blocks (similar to virtual
 
 On Ubuntu 20.04, Nginx has one server block enabled by default and is configured to serve documents out of a directory at /var/www/html. While this works well for a single site, it can become difficult to manage if you are hosting multiple sites. Instead of modifying /var/www/html, we’ll create a directory structure within /var/www for the **your_domain** website, leaving /var/www/html in place as the default directory to be served if a client request does not match any other sites.
 Create the root web directory for **your_domain** as follows:
+
 ```
 sudo mkdir /var/www/projectLEMP
 ```
+
 Next, assign ownership of the directory with the $USER environment variable, which will reference your current system user:
 ```
+
 sudo chown -R $USER:$USER /var/www/projectLEMP
 ```
+
 This will create a new blank file. Paste in the following bare-bones configuration:
 ```
 #/etc/nginx/sites-available/projectLEMP
@@ -142,6 +153,7 @@ server {
 
 }
 ```
+
 Here’s what each of these directives and location blocks do:
 
 . listen — Defines what port Nginx will listen on. In this case, it will listen on port 80, the default port for HTTP.
@@ -271,6 +283,7 @@ mysql>     PRIMARY KEY(item_id)
 mysql> );
 ```
 Insert a few rows of content in the test table. You might want to repeat the next command a few times, using different VALUES:
+
 ```
 mysql> INSERT INTO example_database.todo_list (content) VALUES ("My first important item");
 ```
