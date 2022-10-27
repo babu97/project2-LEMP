@@ -132,6 +132,7 @@ sudo mkdir /var/www/projectLEMP
 ```
 
 Next, assign ownership of the directory with the $USER environment variable, which will reference your current system user:
+
 ```
 
 sudo chown -R $USER:$USER /var/www/projectLEMP
@@ -244,13 +245,17 @@ Type or paste the following lines into the new file. This is valid PHP code that
 ```
 <?PHP 
 phpinfo(); 
-You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php:
 
 ```
+You can now access this page in your web browser by visiting the domain name or public IP address you’ve set up in your Nginx configuration file, followed by /info.php:
+
+
 ```
 http://`server_domain_or_IP`/info.php
 ```
+
 After checking the relevant information about your PHP server through that page, it’s best to remove the file you created as it contains sensitive information about your PHP environment and your Ubuntu server. You can use rm to remove that file:
+
 ```
 sudo rm /var/www/your_domain/info.php
 ```
